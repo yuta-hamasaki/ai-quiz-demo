@@ -4,9 +4,9 @@ export default function page() {
       <div className="legal-content">
         <h1>特定商取引法に基づく表記</h1>
         <p>
-          <strong>販売業社の名称:</strong> Yuta Hamasaki
+          <strong>販売業社の名称:</strong> テスト
           <br />
-          <strong>所在地:</strong> 香川県高松市太田上町746-2
+          <strong>所在地:</strong> 世界中のどこか
           <br />
           <strong>電話番号:</strong> 請求があったら遅滞なく開示します
           <br />
@@ -14,7 +14,7 @@ export default function page() {
           <br />
           <strong>代表者:</strong> Yuta Hamasaki
           <br />
-          <strong>販売URL:</strong> <a href="https://spreaky.com">https://aiwordquiz.com</a>
+          <strong>販売URL:</strong> <a href="https://yutahamasaki.com">https://yutahamasaki.com</a>
           <br />
           <strong>販売価格:</strong> スタンダードプラン:200円/月 ,月額PROプラン: 490円/月, 年間PROプラン4,680円/年
           <br />

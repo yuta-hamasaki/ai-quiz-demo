@@ -1,8 +1,8 @@
 import Link from 'next/link'
 import { createClient } from '@/utils/supabase/server';
-import initStripe, {Stripe} from "stripe"
-import { redirect } from 'next/navigation';
-import {subscribeAction} from '@/actions/stripe';
+// import initStripe, {Stripe} from "stripe"
+// import { redirect } from 'next/navigation';
+// import {subscribeAction} from '@/actions/stripe';
 import PurchaseBtn from './PurchaseBtn';
 import PortalBtn from './PortalBtn';
 
@@ -14,9 +14,9 @@ interface Plan {
   status: boolean;
 }
 
-const standardPlan = process.env.STANDARD_PLAN_ID || 'price_1RihruKhyfhfuII6lJmTUFfg';
-const yearlyProPlan = process.env.YEARLY_PRO_PLAN_ID || 'price_1RiiD8KhyfhfuII6jSS2BxnH';
-const monthlyProPlan = process.env.MONTHLY_PRO_PLAN_ID || 'price_1RiiBwKhyfhfuII6cUYLAxtR'
+const standardPlan = process.env.STANDARD_PLAN_ID!;
+const yearlyProPlan = process.env.YEARLY_PRO_PLAN_ID!;
+const monthlyProPlan = process.env.MONTHLY_PRO_PLAN_ID!;
 
   const PLAN_IDS = {
     STANDARD: standardPlan, 
@@ -49,26 +49,11 @@ export default async function PriceCards({ user }: { user: any }) {
       <section className="py-24 bg-gradient-to-br from-gray-50 to-blue-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">
-              {!user && "シンプルな料金体系"}
-              {user && "料金プランを選択"}
-            </h2>
-            <p className="text-xl text-gray-600">
-              コーヒー1杯分の価格で、無制限の学習体験を
-            </p>
-            {user && 
-            <div className="text-center mt-4 text-xs">
-            <p className="text-gray-600 mb-2">
-              すべてのプランで3日間無料体験が可能です
-            </p>
-            <div className="flex justify-center space-x-8  text-gray-500 text-xs">
-              <div className="flex items-center space-x-2">
-                <span className="text-green-500">✓</span>
-                <span>いつでもキャンセル可能</span>
-              </div>
+            <div className="inline-block px-6 py-3 rounded-xl bg-yellow-100 border border-yellow-300 shadow-sm text-base text-yellow-900 font-medium mb-4">
+              <span className="font-semibold text-yellow-700">※ 決済はテストモードです。</span>
+              <br />
+              カード番号は <span className="font-mono bg-yellow-200 px-1 py-0.5 rounded">4242 4242 4242 4242</span>、有効期限は未来の日付、CVCは任意の3桁でテスト可能です。
             </div>
-          </div>
-        }
           </div>
           
           <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">

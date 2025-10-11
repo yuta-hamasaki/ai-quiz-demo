@@ -21,7 +21,8 @@ export default async function page() {
 
   return (
     <div>
-      {user && <PriceCards
+      {user && 
+      <PriceCards
         user={user}
       />
       }
