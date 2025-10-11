@@ -174,3 +174,17 @@ export async function resetPassword(formData: FormData, code: string) {
     message: 'Password reset successfully',
   }
 }
+
+
+export async function AnonimousSignIn() {
+  const supabase = await createClient()
+  const { error, data } = await supabase.auth.signInAnonymously()
+
+  if (error) {
+    console.error('Error signing in anonymously:', error)
+    return { status: 'error', message: error.message }
+  } else if (data?.user) {
+    revalidatePath('/', 'layout')
+    redirect('/')
+  }
+}

@@ -1,5 +1,6 @@
-import LoginForm from "@/components/LoginForm";
+// import LoginForm from "@/components/LoginForm";
 import LoginGoogle from "@/components/LoginGoogle";
+import AnonimousSignIn from "@/components/AnonimousSignIn";
 import Link from "next/link";
 
 export default function LoginPage() {
@@ -12,7 +13,8 @@ export default function LoginPage() {
           </h1>
           <LoginGoogle />
           <p className="text-center">--- または ---</p>
-          <LoginForm />
+          {/* <LoginForm /> */}
+          <AnonimousSignIn />
           <div className="mt-2 flex items-center">
             <h1>{`新規登録はこちら`}</h1>
             <Link className="text-sm ml-2" href="/register">
