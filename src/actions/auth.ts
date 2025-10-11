@@ -178,13 +178,35 @@ export async function resetPassword(formData: FormData, code: string) {
 
 export async function AnonimousSignIn() {
   const supabase = await createClient()
-  const { error, data } = await supabase.auth.signInAnonymously()
+
+  // type-casting here for convenience
+  // in practice, you should validate your inputs
+  const credentials = {
+    email: process.env.GUEST_EMAIL as string,
+    password: process.env.GUEST_PASSWORD as string,
+  }
+  const { error, data } = await supabase.auth.signInWithPassword(credentials)
 
   if (error) {
-    console.error('Error signing in anonymously:', error)
-    return { status: 'error', message: error.message }
-  } else if (data?.user) {
-    revalidatePath('/', 'layout')
-    redirect('/')
+    redirect('/error')
   }
+
+  const { data: existingUser } = await supabase.from('user_profile').select('*').eq('email', credentials.email).limit(1).single()
+
+  if(!existingUser) {
+    const {error: insertError} = await supabase.from('user_profile').insert({
+      email: data?.user?.email,
+      username: data?.user?.user_metadata?.username,
+  })
+  if(insertError) {
+    return {
+      status: 'error',
+      message: insertError.message,
+      user: null
+    }
+  }
+}
+
+  revalidatePath('/', 'layout')
+  redirect('/')
 }

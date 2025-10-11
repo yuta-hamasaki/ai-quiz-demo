@@ -1,6 +1,7 @@
 import { createClient } from '@/utils/supabase/server';
 import PriceCards from '@/components/PriceCards';
 import { redirect } from 'next/navigation';
+import { TIMEOUT } from 'dns';
 
 export default async function page() {
     const supabase = createClient();
