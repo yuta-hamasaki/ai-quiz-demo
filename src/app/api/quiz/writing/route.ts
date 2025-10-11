@@ -1,3 +1,4 @@
+
 import { NextResponse } from 'next/server';
 
 export async function POST(request: Request){
@@ -15,7 +16,8 @@ export async function POST(request: Request){
   }
 
   const prompt = `
-  以下の条件に合った英単語または外国語単語の4択クイズを10問作成してください。
+  ${language}に翻訳する練習をするための日本語のランダムな文章とその正解の文章を10個作成してください。
+  文章は以下の条件に合ったものにしてください。
 
   - 言語: ${language},
   - レベル: ${level} 
@@ -24,22 +26,19 @@ export async function POST(request: Request){
 
   [
   {
-    "meaning": "意味",
-    "options": ["選択肢１", "選択肢2", "選択肢3", "選択肢4"],
-    "correct": "正解"
+  jpText: string
+  correctText: string
   },
   .....
 ]
 
 
   - 必ず守る注意点: 
-    - 単語はレベル、分野に応じたものを選ぶこと
+    - レベル、分野に応じたものを選ぶこと
     -簡単すぎる単語(Apple, Dogなど)は避けること
-    - 選択肢（options）は正解を含めた4つの単語で、順序は必ずランダムにしてください。
-    - 正解の単語は options の中のどの位置でも良いですが、必ず含めてください。
-    - 正解の単語と意味は必ず含めること
-    - meaningは日本語で書くこと
-    - meaningを見て選択肢を選ぶ形式にすること
+    - 正解の文章は必ずcorrectTextに入れること
+    - jpTextは日本語で書くこと
+    - correctTextは指定された言語で書くこと
   `
     
   try {
@@ -79,5 +78,4 @@ export async function POST(request: Request){
     }, {status: 500})
   }
 }
-
 

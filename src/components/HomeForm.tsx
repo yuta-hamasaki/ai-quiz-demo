@@ -5,16 +5,17 @@ import { useRouter } from 'next/navigation'
 import { createClient } from '@/utils/supabase/client'
 import { standardCalculator } from '@/actions/quiz-limit' 
 
-export default function HomePage() {
+export default function HomeForm() {
   const [language, setLanguage] = useState('english')
   const [background, setBackground] = useState('daily-conversation')
   const [level, setLevel] = useState('A1')
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
   const [user, setUser] = useState<any>(null)
+  const [isWordQuiz, setIsWordQuiz] = useState(true) 
   const router = useRouter()
 
-  // ユーザー情報を取得
+
   useEffect(() => {
     const getUser = async () => {
       const supabase = createClient()
@@ -34,7 +35,6 @@ export default function HomePage() {
     setError('')
 
     try {
-      // 利用制限チェック
       const result = await standardCalculator(user.id)
       
       if (result.status === 'error') {
@@ -43,31 +43,33 @@ export default function HomePage() {
         return
       }
 
-      // 制限チェック通過 → クイズページへ
       const params = new URLSearchParams({ language, level, background })
-      router.push(`/quiz?${params.toString()}`)
+      const destinationPath = isWordQuiz ? '/quiz' : '/quiz/writing'
+      
+      router.push(`${destinationPath}?${params.toString()}`)
     } catch (err) {
-      console.error('Error starting quiz:', err)
-      setError('クイズを開始できませんでした。しばらく時間をおいてから再度お試しください。')
+      console.error('Error starting feature:', err)
+      setError(`${isWordQuiz ? '単語クイズ' : 'ライティング'}を開始できませんでした。しばらく時間をおいてから再度お試しください。`)
     } finally {
       setIsLoading(false)
     }
   }
 
+  
+  const currentTitle = isWordQuiz ? "単語クイズ" : "AIライティング/翻訳"
+  const startButtonLabel = isWordQuiz ? "🚀 単語クイズを始める" : "✍️ ライティングを始める"
+
+
+  const featureCardBaseStyle = "flex flex-col items-center justify-center p-4 rounded-xl border-2 transition-all duration-200 cursor-pointer text-center h-full"
+  
   return (
-    <div className="bg-blue-50 flex flex-col items-center justify-center p-4 ">
-      {/* Main content */}
+    <div className="bg-blue-50 flex flex-col items-center justify-center p-4 min-h-screen">
       <div className="relative z-[9998] max-w-md w-full my-8">
-        {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent mb-2">
-            クイズの設定
-          </h1>
+          <p className="text-xl text-gray-500 font-medium">学習モードを選択してください</p>
         </div>
 
-        {/* Form card */}
         <div className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-xl border border-white/20 p-8 space-y-6">
-          {/* Error message */}
           {error && (
             <div className="p-4 bg-red-50 border border-red-200 rounded-xl">
               <div className="flex items-center space-x-2">
@@ -77,7 +79,45 @@ export default function HomePage() {
             </div>
           )}
 
-          {/* Language selection */}
+          <div className="space-y-3">
+            <label className="block text-sm font-semibold text-gray-700 mb-2">
+              📚 学習機能を選択
+            </label>
+            <div className="grid grid-cols-2 gap-4">
+              
+              <div 
+                onClick={() => setIsWordQuiz(true)}
+                className={`${featureCardBaseStyle} ${
+                  isWordQuiz 
+                    ? 'border-blue-500 bg-blue-50 shadow-md text-blue-700' 
+                    : 'border-gray-100 bg-gray-50 text-gray-600 hover:border-gray-200 hover:bg-gray-100'
+                }`}
+              >
+                <div className="text-4xl mb-1">🧠</div>
+                <div className="font-bold text-base">単語クイズ</div>
+                <div className="text-xs opacity-80 mt-0.5">瞬発力と語彙力の強化</div>
+              </div>
+              
+              <div 
+                onClick={() => setIsWordQuiz(false)}
+                className={`${featureCardBaseStyle} ${
+                  !isWordQuiz 
+                    ? 'border-purple-500 bg-purple-50 shadow-md text-purple-700' 
+                    : 'border-gray-100 bg-gray-50 text-gray-600 hover:border-gray-200 hover:bg-gray-100'
+                }`}
+              >
+                <div className="text-4xl mb-1">✍️</div>
+                <div className="font-bold text-base">AIライティング/翻訳練習</div>
+                <div className="text-xs opacity-80 mt-0.5">作文力と表現力の強化</div>
+              </div>
+            </div>
+          </div>
+
+          <h2 className="text-xl font-bold text-gray-800 pt-4 border-t border-gray-100">
+            {currentTitle} の設定
+          </h2>
+
+
           <div className="space-y-3">
             <label className="block text-sm font-semibold text-gray-700 mb-2">
               📚 学習言語を選択
@@ -105,7 +145,6 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* industry selection */}
           <div className="space-y-3">
             <label className="block text-sm font-semibold text-gray-700 mb-2">
               ✏️分野、シチュエーションを選択
@@ -119,30 +158,31 @@ export default function HomePage() {
               >
                 <option value="daily-conversation">日常会話</option>
                 <option value="business">ビジネス</option>
-                <option value="若者言葉-スラングフレーズ">スラング</option>
-                {language === "english" && 
-                <>
-                  <option value="toefl">TOEFL</option>
-                  <option value="英検">英検</option>
-                  <option value="toeic">TOEIC</option>
-                  <option value="ielts">IELTS</option>
-                  <option value="duolingo-english-test">Duolingo English Test</option>
-                </>
-                }
-                {language === "german" && 
-                <>
-                  <option value="独検">独検</option>
-                  <option value="ゲーテ試験">ゲーテ試験</option>
-                  <option value="DSH">DSH</option>
-                </>
-                }
-                {language === "spanish" && 
-                <>
-                  <option value="西検">西検</option>
-                  <option value="siele">SIELE</option>
-                  <option value="dele">DELE</option>
-                </>
-                }
+                <option value="accademic">アカデミック</option>
+                <option value="travel">旅行</option>
+                <option value="culture">文化・歴史</option>
+                <option value="food">食べ物・料理</option>
+                <option value="technology">テクノロジー</option>
+                <option value="science">科学</option>
+                <option value="sports">スポーツ</option>
+                <option value="entertainment">エンタメ</option>
+                <option value="health">健康・医療</option>
+                <option value="environment">環境・自然</option>
+                <option value="politics">政治・社会問題</option>
+                <option value="economics">経済・ビジネスニュース</option>
+                <option value="literature">文学・小説</option>
+                <option value="art">アート・デザイン</option>
+                <option value="fashion">ファッション</option>
+                <option value="hiphop-rap">Hiphop/rap</option>
+                <option value="fishing-industry">漁業</option>
+                <option value="history">歴史</option>
+                <option value="philosophy">哲学・思想</option>
+                <option value="psychology">心理学・人間行動</option>
+                <option value="education">教育</option>
+                <option value="law">法律・規制</option>
+                <option value="real-estate">不動産</option>
+                <option value="marketing">マーケティング・広告</option>
+                <option value="finance">金融・投資</option>
               </select>
               <div className="absolute inset-y-0 right-0 flex items-center pr-4 pointer-events-none">
                 <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -152,7 +192,6 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* Level selection */}
           <div className="space-y-3">
             <label className="block text-sm font-semibold text-gray-700 mb-2">
               🎯 学習レベルを選択
@@ -183,11 +222,11 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* Start button */}
+
           <button 
             onClick={handleStart} 
             disabled={isLoading}
-            className={`w-full py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-2xl shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 flex items-center justify-center space-x-2 ${
+            className={`w-full py-4 bg-gradient-to-r ${isWordQuiz ? 'from-blue-600 to-purple-600' : 'from-purple-600 to-pink-600'} text-white font-semibold rounded-2xl shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 flex items-center justify-center space-x-2 ${
               isLoading ? 'opacity-50 cursor-not-allowed transform-none' : ''
             }`}
           >
@@ -197,27 +236,9 @@ export default function HomePage() {
                 <span>読み込み中...</span>
               </>
             ) : (
-              <span>🚀 クイズを始める</span>
+              <span>{startButtonLabel}</span>
             )}
           </button>
-
-          {/* Feature highlights */}
-          <div className="pt-4 border-t border-gray-100">
-            <div className="grid grid-cols-3 gap-4 text-center">
-              <div className="space-y-1">
-                <div className="text-2xl">🧠</div>
-                <div className="text-xs text-gray-600 font-medium">AI学習</div>
-              </div>
-              <div className="space-y-1">
-                <div className="text-2xl">⚡</div>
-                <div className="text-xs text-gray-600 font-medium">高速習得</div>
-              </div>
-              <div className="space-y-1">
-                <div className="text-2xl">📈</div>
-                <div className="text-xs text-gray-600 font-medium">進歩追跡</div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </div>
