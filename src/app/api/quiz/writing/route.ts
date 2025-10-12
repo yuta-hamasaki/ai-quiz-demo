@@ -16,7 +16,7 @@ export async function POST(request: Request){
   }
 
   const prompt = `
-  ${language}に翻訳する練習をするための日本語のランダムな文章とその正解の文章を10個作成してください。
+${language}に翻訳する練習をするための${userBackground}についての日本語のランダムな文章とその正解の文章を10個作成してください。
   文章は以下の条件に合ったものにしてください。
 
   - 言語: ${language},
@@ -32,13 +32,14 @@ export async function POST(request: Request){
   .....
 ]
 
-
-  - 必ず守る注意点: 
+    - 必ず守る注意点: 
     - レベル、分野に応じたものを選ぶこと
     -簡単すぎる単語(Apple, Dogなど)は避けること
     - 正解の文章は必ずcorrectTextに入れること
     - jpTextは日本語で書くこと
     - correctTextは指定された言語で書くこと
+
+
   `
     
   try {
