@@ -15,7 +15,7 @@ export async function POST(request: Request){
   }
 
   const prompt = `
-  以下の条件に合った英単語または外国語単語の4択クイズを10問作成してください。
+  以下の条件に合った${userBackground}についての${language}単語の4択クイズを10問作成してください。
 
   - 言語: ${language},
   - レベル: ${level} 
