@@ -15,31 +15,53 @@ export async function POST(request: Request){
   }
 
   const prompt = `
-  以下の条件に合った${userBackground}についての${language}単語の4択クイズを10問作成してください。
+Generate 10 multiple-choice vocabulary questions (4 options per question) in the ${language} related to the ${userBackground}, adhering strictly to the following conditions and output format.
 
-  - 言語: ${language},
-  - レベル: ${level} 
-  - 分野: ${userBackground}
-  - 出力形式: JSON。構造は以下の通りです:
+Conditions
 
-  [
+Language: ${language}
+
+Level: ${level}
+
+Field/Topic: ${userBackground}
+
+Quiz Format: Select the correct target word based on the provided Japanese meaning.
+
+📦 Output Format
+
+The output must be a single JSON array structured exactly as follows:
+
+[
   {
-    "meaning": "意味",
-    "options": ["選択肢１", "選択肢2", "選択肢3", "選択肢4"],
-    "correct": "正解"
+    "meaning": "string (Japanese meaning)",
+    "options": ["string", "string", "string", "string"],
+    "correct": "string (The correct target word)"
   },
-  .....
+  ...
 ]
 
 
-  - 必ず守る注意点: 
-    - 単語はレベル、分野に応じたものを選ぶこと
-    -簡単すぎる単語(Apple, Dogなど)は避けること
-    - 選択肢（options）は正解を含めた4つの単語で、順序は必ずランダムにしてください。
-    - 正解の単語は options の中のどの位置でも良いですが、必ず含めてください。
-    - 正解の単語と意味は必ず含めること
-    - meaningは日本語で書くこと
-    - meaningを見て選択肢を選ぶ形式にすること
+⚠️ Mandatory Guidelines
+
+Relevance: Select vocabulary appropriate for the specified Level and Field/Topic.
+
+Difficulty: Avoid overly simple words (e.g., Apple, Dog).
+
+Options Array:
+
+The options array must contain exactly 4 vocabulary words, including the correct answer.
+
+The order of the options must be strictly random.
+
+Correct Answer:
+
+The word specified in the correct field must be present in the options array.
+
+Language Specification:
+
+The meaning field must be written in Japanese.
+
+The words in options and correct must be written in the specified target Language (${language}).
   `
     
   try {

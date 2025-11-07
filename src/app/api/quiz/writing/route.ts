@@ -16,28 +16,38 @@ export async function POST(request: Request){
   }
 
   const prompt = `
-${language}に翻訳する練習をするための${userBackground}についての日本語のランダムな文章とその正解の文章を10個作成してください。
-  文章は以下の条件に合ったものにしてください。
+Generate a set of 10 random Japanese sentences and their corresponding correct translations, designed for a user with a specific background, for the purpose of translation practice into the target language.
 
-  - 言語: ${language},
-  - レベル: ${level} 
-  - 分野: ${userBackground}
-  - 出力形式: JSON。構造は以下の通りです:
+The sentences must adhere to the following conditions:
 
-  [
+Language: ${language}
+
+Level: ${level}
+
+Field/Topic: ${userBackground}
+
+Output Format: JSON. The structure must be exactly as follows:
+
+[
   {
-  jpText: string
-  correctText: string
+    "jpText": "string",
+    "correctText": "string"
   },
-  .....
+  ...
 ]
 
-    - 必ず守る注意点: 
-    - レベル、分野に応じたものを選ぶこと
-    -簡単すぎる単語(Apple, Dogなど)は避けること
-    - 正解の文章は必ずcorrectTextに入れること
-    - jpTextは日本語で書くこと
-    - correctTextは指定された言語で書くこと
+
+Mandatory Guidelines:
+
+The content must be appropriate for the specified Level and Field/Topic.
+
+Avoid overly simple words (e.g., Apple, Dog).
+
+The correct translation must be placed in the correctText field.
+
+jpText must be written in Japanese.
+
+correctText must be written in the specified target Language.
 
 
   `
