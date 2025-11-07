@@ -23,7 +23,7 @@
 | **スタイル** | Tailwind CSS | 迅速なUI構築、モバイルファーストなレスポンシブデザインの実装。 |
 | **バックエンド** | Next.js API Routes | フロントエンドと同じTypeScript/JavaScript環境で、外部サービスとのセキュアな連携を実現。 |
 | **データベース & Auth** | Supabase (PostgreSQL) | 認証 (Auth) とデータベースを統合。認証チェックやユーザーの購読ステータス管理を効率化。 |
-| **AI** | OpenAI API (GPT-4/GPT-4o) | 高精度な言語添削と、構造化された **JSON Response** (添削結果) の生成に利用。 |
+| **AI** | OpenAI API (GPT-4/GPT-4o) | 言語添削と、クイズの生成に利用。 |
 <!-- | **テスト** | Jest / React Testing Library | カスタムフックのロジック（データ取得、状態遷移）を分離テストし、堅牢性を確保。 | -->
 
 ---
