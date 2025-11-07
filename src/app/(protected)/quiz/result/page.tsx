@@ -37,7 +37,6 @@ export default function QuizResultPage() {
   }, [])
 
   useEffect(() => {
-    // URLパラメータまたはlocalStorageからスコア情報を取得
     const scoreParam = searchParams.get('score')
     const totalParam = searchParams.get('total')
     
@@ -45,7 +44,6 @@ export default function QuizResultPage() {
       setScore(parseInt(scoreParam))
       setTotalQuestions(parseInt(totalParam))
     } else {
-      // localStorageから取得（フォールバック）
       const savedScore = localStorage.getItem('quiz_score')
       const savedTotal = localStorage.getItem('quiz_total')
       if (savedScore && savedTotal) {
@@ -123,15 +121,13 @@ export default function QuizResultPage() {
   const scoreMessage = getScoreMessage()
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-8 px-4">
+    <div className="min-h-screen bg-purple-50 py-8 px-4">
       <div className="max-w-4xl mx-auto">
-        {/* メインの結果カード */}
         <div className="bg-white rounded-xl shadow-lg p-8 mb-6">
           <div className="text-center mb-8">
             <h1 className="text-3xl font-bold text-gray-800 mb-4">クイズ結果</h1>
             
-            {/* スコア表示 */}
-            <div className="bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg p-6 text-white mb-6">
+            <div className="bg-purple-500 rounded-lg p-6 text-white mb-6">
               <div className="text-5xl font-bold mb-2">{score}/{totalQuestions}</div>
               <div className="text-xl mb-2">正答率: {getScorePercentage()}%</div>
               <div className={`text-lg font-semibold ${scoreMessage.color.replace('text-', 'text-white')}`}>
@@ -139,7 +135,7 @@ export default function QuizResultPage() {
               </div>
             </div>
 
-            {/* 言語・レベル情報 */}
+  
             <div className="flex justify-center gap-4 mb-6">
               <span className="bg-gray-100 px-3 py-1 rounded-full text-sm font-medium">
                 言語: {language === 'english' ? '英語' : language === 'japanese' ? '日本語' : language}
@@ -154,7 +150,7 @@ export default function QuizResultPage() {
           <div className="flex flex-wrap justify-center gap-4">
             <button
               onClick={handleRetry}
-              className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition-colors"
+              className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-lg font-medium transition-colors"
             >
               もう一度挑戦
             </button>
@@ -174,8 +170,6 @@ export default function QuizResultPage() {
             )}
           </div>
         </div>
-
-        {/* 間違えた問題の概要 */}
         {mistakes.length > 0 && (
           <div className="bg-white rounded-xl shadow-lg p-6">
             <h2 className="text-2xl font-bold text-gray-800 mb-4">

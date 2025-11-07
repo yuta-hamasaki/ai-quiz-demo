@@ -5,11 +5,9 @@ import { useAuthAndSubscription } from '@/hooks/useAuthAndSubscribed'
 import { useQuizData } from '@/hooks/useQuizData'
 import { useSearchParams } from 'next/navigation'
 import type { Writing } from '@/types/quiz'
-
-// 💡 AI添削APIから返されるフィードバックの型定義
 interface Feedback {
   grammarCorrections: { original: string; corrected: string; reason: string }[];
-  styleSuggestions: string; // より自然な表現の提案
+  styleSuggestions: string; 
 }
 
 export default function Writing() {
@@ -24,9 +22,11 @@ export default function Writing() {
 
   const language = searchParams.get('language') || 'english'
   const level = searchParams.get('level') || 'beginner'
+  const background = searchParams.get('background') || ''
   const { user, isSubscribed, authLoading } = useAuthAndSubscription()
   const feature = 'writing' // 💡 機能種別を指定
-  const { quizList, loading } = useQuizData({ language, level, user,feature, isSubscribed, authLoading })
+  const { quizList, loading } = useQuizData({ language,background, level, user,feature, isSubscribed, authLoading })
+
 
   const currentQuiz = quizList[currentIndex]
   const totalCount = quizList.length
@@ -63,11 +63,11 @@ export default function Writing() {
                 userId: user.id,
                 language: language,
                 level: level,
+                background: background,
                 originalText: currentPrompt.jpText,
                 userTranslation: translationText, 
             }),
         })
-        console.log(res)
 
         if (!res.ok) {
             throw new Error('添削API呼び出しに失敗しました。')
@@ -104,7 +104,7 @@ export default function Writing() {
   }
 
   return (
-<div className="min-h-screen bg-gradient-to-br from-purple-50 to-indigo-100 py-8 px-4">
+<div className="min-h-screen bg-purple-50 py-8 px-4">
       <div className="max-w-3xl mx-auto">
         <div className="bg-white rounded-lg shadow-md p-4 mb-6 text-center">
             <h1 className="text-2xl font-bold text-gray-800 mb-1">AIライティング/翻訳 練習</h1>
@@ -138,7 +138,6 @@ export default function Writing() {
 }
         </div>
 
-        {/* 2. ユーザー入力エリア */}
         <div className="mb-6">
             <label className="block text-lg font-semibold text-gray-700 mb-2">
                 {language.charAt(0).toUpperCase() + language.slice(1)}に翻訳・作文
@@ -183,21 +182,19 @@ export default function Writing() {
                 </button>
         </div>
 
-        {/* 4. AIフィードバック表示エリア */}
         {feedback && (
             <div className="bg-white rounded-xl shadow-2xl p-6 space-y-6">
                 <h2 className="text-2xl font-bold text-purple-700 border-b pb-2 mb-4">
-                    ✅ AI添削結果
+                    AI添削結果
                 </h2>
                 
                 <div>
-                    <h3 className="text-lg font-semibold text-gray-700 mb-2">✨ 模範解答</h3>
+                    <h3 className="text-lg font-semibold text-gray-700 mb-2">模範解答</h3>
                     <p className="p-3 bg-gray-50 border border-gray-200 rounded-lg italic text-gray-800">
                         {currentPrompt.correctText} 
                     </p>
                 </div>
 
-                {/* 文法修正点 */}
                 {feedback.grammarCorrections && feedback.grammarCorrections.length > 0 && (
                     <div>
                         <h3 className="text-lg font-semibold text-red-600 mb-2">🚨 文法・語彙の修正点</h3>
@@ -212,10 +209,9 @@ export default function Writing() {
                     </div>
                 )}
                 
-                {/* スタイル提案 */}
                 {feedback.styleSuggestions && (
                     <div>
-                        <h3 className="text-lg font-semibold text-blue-600 mb-2">💡 より自然な表現の提案</h3>
+                        <h3 className="text-lg font-semibold text-purple-600 mb-2">💡 より自然な表現の提案</h3>
                         <p className="text-gray-700">{feedback.styleSuggestions}</p>
                     </div>
                 )}

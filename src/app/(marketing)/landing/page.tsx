@@ -35,12 +35,12 @@ const landingText = await client.get({
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-8">
               <Link href="/register" className="w-full sm:w-auto">
-              <button className="px-8 py-4 bg-blue-600 text-white font-bold rounded-2xl shadow-lg hover:shadow-xl hover:scale-105 transform transition-all duration-300 text-lg">
-                🚀 新規登録
+              <button className="px-8 py-4 bg-purple-600 text-white font-bold rounded-2xl shadow-lg hover:shadow-xl hover:scale-105 transform transition-all duration-300 text-lg">
+                新規登録
               </button>
               </Link>
               <Link href="/login" className="w-full sm:w-auto">
-                <button className="px-8 py-4 bg-white text-blue-800 font-bold rounded-2xl shadow-lg hover:shadow-xl hover:scale-105 transform transition-all duration-300 text-lg">
+                <button className="px-8 py-4 bg-white text-purple-800 font-bold rounded-2xl shadow-lg hover:shadow-xl hover:scale-105 transform transition-all duration-300 text-lg">
                   ログイン
                 </button>
               </Link>
@@ -94,7 +94,7 @@ const landingText = await client.get({
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {features.map((feature, index) => (
               <div key={index} 
-                  className="group p-8 rounded-3xl bg-gray-50 hover:bg-white transition-all duration-300 hover:shadow-lg hover:shadow-blue-100 hover:scale-105 border border-gray-100">
+                  className="group p-8 rounded-3xl bg-gray-50 hover:bg-white transition-all duration-300 hover:shadow-lg hover:shadow-purple-100 hover:scale-105 border border-gray-100">
                 <div className="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300 text-blue-600"> 
                   {feature.icon}
                 </div>
@@ -145,7 +145,7 @@ const landingText = await client.get({
             ].map((item, index) => (
               <div key={index} className="text-center space-y-6">
                 <div className="relative">
-                  <div className="w-24 h-24 mx-auto bg-gradient-to-r from-blue-500 to-blue-600 rounded-full flex items-center justify-center text-4xl shadow-xl">
+                  <div className="w-24 h-24 mx-auto bg-gradient-to-r from-purple-500 to-purple-600 rounded-full flex items-center justify-center text-4xl shadow-xl">
                     {item.icon}
                   </div>
                   <div className="absolute -top-2 -right-2 w-8 h-8 bg-white rounded-full flex items-center justify-center text-sm font-bold text-blue-600 shadow-lg border border-blue-200">

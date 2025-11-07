@@ -1,67 +1,50 @@
 import { NextResponse } from 'next/server';
 
+const systemInstruction = `
+You are a highly specialized educational content generator. Your task is to generate vocabulary quiz questions based ONLY on the provided Field/Topic, Level, and Language parameters. 
+The output MUST be a single, valid JSON array and strictly follow the defined structure and mandatory guidelines. 
+DO NOT include any explanatory text, markdown outside of the JSON block (e.g., json), or numbering in your response.
+`;
+
 export async function POST(request: Request){
   const {searchParams} = new URL(request.url)
 
   const language = searchParams.get('language')
   const level = searchParams.get('level')
-  const userBackground = `${searchParams.get('background')}`
+  const userBackground = searchParams.get('background')
   
-    if(!language || !level){
+    if(!language || !level || !userBackground){
     return NextResponse.json(
       { error: 'Language and level are required' },
       { status: 400 }
     )
   }
 
-  const prompt = `
-Generate 10 multiple-choice vocabulary questions (4 options per question) in the ${language} related to the ${userBackground}, adhering strictly to the following conditions and output format.
 
-Conditions
 
-Language: ${language}
 
-Level: ${level}
+const prompt = `
+Generate 10 multiple-choice vocabulary questions (4 options per question) in the ${language} related to the **STRICT FIELD OF: ${userBackground}**, adhering to all conditions.
 
-Field/Topic: ${userBackground}
+**Conditions:**
+- Language: ${language}
+- Level: ${level}
+- Field/Topic: ${userBackground}
+- Quiz Format: Select the correct target word based on the provided Japanese meaning.
 
-Quiz Format: Select the correct target word based on the provided Japanese meaning.
-
-📦 Output Format
-
+**Output Format:**
 The output must be a single JSON array structured exactly as follows:
-
 [
-  {
-    "meaning": "string (Japanese meaning)",
-    "options": ["string", "string", "string", "string"],
-    "correct": "string (The correct target word)"
-  },
+  { "meaning": "string (Japanese meaning)", "options": ["string", "string", "string", "string"], "correct": "string (The correct target word)" },
   ...
 ]
 
-
-⚠️ Mandatory Guidelines
-
-Relevance: Select vocabulary appropriate for the specified Level and Field/Topic.
-
-Difficulty: Avoid overly simple words (e.g., Apple, Dog).
-
-Options Array:
-
-The options array must contain exactly 4 vocabulary words, including the correct answer.
-
-The order of the options must be strictly random.
-
-Correct Answer:
-
-The word specified in the correct field must be present in the options array.
-
-Language Specification:
-
-The meaning field must be written in Japanese.
-
-The words in options and correct must be written in the specified target Language (${language}).
+**Mandatory Guidelines:**
+1. Relevance: Vocabulary must be **STRICTLY** appropriate for the specified Level and Field/Topic.
+2. Difficulty: Avoid overly simple words (e.g., Apple, Dog).
+3. Options Array: Must contain exactly 4 words, including the correct answer, in a strictly random order.
+4. Correct Answer: Must be present in the options array.
+5. Language: Meaning in Japanese; Options/Correct in ${language}.
   `
     
   try {
@@ -73,7 +56,10 @@ The words in options and correct must be written in the specified target Languag
       },
       body: JSON.stringify({
         model: 'gpt-4-turbo',
-        messages: [{ role: 'user', content: prompt }],
+        messages: [
+          { role: 'system', content: systemInstruction }, 
+          { role: 'user', content: prompt }
+        ],
         temperature: 0.7,
       }),
     })
@@ -88,6 +74,7 @@ The words in options and correct must be written in the specified target Languag
     { status: 500 }
   )
 }
+
 
   
     const cleanContent = content.replace(/```json|```/g, '').trim()

@@ -115,7 +115,7 @@ export default async function PriceCards({ user }: { user: any }) {
             </div>
 
             {/* Yealy Pro Plan */}
-            <div className="bg-gradient-to-br from-blue-600 to-purple-600 rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 relative">
+            <div className="bg-gradient-to-br from-purple-500 to-blue-400 rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 relative">
               <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
                 <div className="bg-yellow-400 text-black px-4 py-1 rounded-full text-sm font-bold">
                   人気No.1
@@ -151,7 +151,7 @@ export default async function PriceCards({ user }: { user: any }) {
                 </ul>
                 <div className="mt-6">
                   {showPayButton && <PurchaseBtn 
-                    className={"w-full py-3 bg-white text-blue-600 font-bold rounded-2xl hover:bg-gray-100 transition-all duration-300"}
+                    className={"w-full py-3 bg-white text-purple-600 font-bold rounded-2xl hover:bg-gray-100 transition-all duration-300"}
                     user={user}
                     priceId={PLAN_IDS.YEARLY_PRO}
                     btnText={"年間PROプランを選択"}

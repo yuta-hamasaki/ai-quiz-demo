@@ -30,7 +30,7 @@ const QuizCard = ({
   }
 
   return (
-    <div className="bg-blue-200 shadow-md rounded-lg p-4 mb-4">
+    <div className="bg-purple-200 shadow-md rounded-lg p-4 mb-4">
       <h3>{currentIndex + 1}. {meaning}</h3>
       <ul className="p-5 mt-2 space-y-2">
         {options.map((option, index) => {

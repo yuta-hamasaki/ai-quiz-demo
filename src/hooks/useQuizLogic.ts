@@ -17,7 +17,7 @@ interface QuizLogicResult {
   handleAnswer: (selected: string, correct: string) => Promise<void>
 }
 
-export const useQuizLogic = ({ quizList, user, language, level }: QuizLogicProps): QuizLogicResult => {
+export const useQuizLogic = ({ quizList, user, language, level}: QuizLogicProps): QuizLogicResult => {
   const [isAnswered, setIsAnswered] = useState<boolean>(false)
   const [score, setScore] = useState<number>(0)
   const [currentIndex, setCurrentIndex] = useState<number>(0)

@@ -6,6 +6,7 @@ import { Quiz, Writing } from '@/types/quiz'
 interface QuizDataProps {
   language: string
   level: string
+  background: string
   user: any | null
   feature: 'quiz' | 'writing' // 💡 機能種別
   isSubscribed: boolean
@@ -19,14 +20,14 @@ interface QuizDataState {
 
 
 
-export const useQuizData = ({ language, level, user, isSubscribed, feature, authLoading }: QuizDataProps): QuizDataState => {
+export const useQuizData = ({ language, level, user, isSubscribed, feature, authLoading, background }: QuizDataProps): QuizDataState => {
   const [quizList, setQuizList] = useState<Quiz[]>([])
   const [loading, setLoading] = useState<boolean>(true)
 
   useEffect(() => {
     if (!user || !isSubscribed || authLoading) return
     
-    if (!language || !level) {
+    if (!language || !level || !background) {
       redirect('/')
       return
     }
@@ -37,9 +38,9 @@ export const useQuizData = ({ language, level, user, isSubscribed, feature, auth
 
         let apiPath = ""
         if(feature === 'quiz') {
-          apiPath = `/api/quiz?language=${language}&level=${level}`
+          apiPath = `/api/quiz?language=${language}&level=${level}&background=${background}`
         } else if (feature === 'writing') {
-          apiPath = `/api/quiz/writing?language=${language}&level=${level}`
+          apiPath = `/api/quiz/writing?language=${language}&level=${level}&background=${background}`
         }else{
           setLoading(false)
           return;
@@ -65,7 +66,7 @@ export const useQuizData = ({ language, level, user, isSubscribed, feature, auth
     }
 
     fetchQuiz()
-  }, [language, level, user, isSubscribed, authLoading])
+  }, [language, level,background, user, isSubscribed, authLoading])
 
   return { quizList, loading }
 }

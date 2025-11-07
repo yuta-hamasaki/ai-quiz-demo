@@ -69,7 +69,7 @@ export default function MistakesPage() {
         setMistakes(data || [])
       }
     } catch (err) {
-      console.error('Fetch mistakes error:', err)
+      console.error(' mistakes error:', err)
     } finally {
       setLoading(false)
     }
@@ -164,7 +164,7 @@ export default function MistakesPage() {
           <p className="text-lg text-gray-600 mb-4">ログインが必要です</p>
           <button
             onClick={() => router.push('/auth/login')}
-            className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700"
+            className="bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700"
           >
             ログインする
           </button>
@@ -185,7 +185,7 @@ export default function MistakesPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-50 to-red-100 py-8 px-4">
+    <div className="min-h-screen bg-purple-50 py-8 px-4">
       <div className="max-w-6xl mx-auto">
         {/* ヘッダー */}
         <div className="bg-white rounded-xl shadow-lg p-6 mb-6">
@@ -195,7 +195,6 @@ export default function MistakesPage() {
               <p className="text-gray-600">復習して知識を定着させましょう</p>
             </div>
             
-            {/* フィルタ */}
             <div className="flex flex-wrap gap-3">
               <select
                 value={selectedLanguage}
@@ -228,7 +227,6 @@ export default function MistakesPage() {
             </div>
           </div>
 
-          {/* 統計とアクション */}
           <div className="flex flex-col md:flex-row md:items-center md:justify-between mt-6 pt-4 border-t border-gray-200">
             <div className="flex items-center gap-4 mb-4 md:mb-0">
               <div className="bg-orange-100 px-3 py-1 rounded-full">
@@ -259,7 +257,6 @@ export default function MistakesPage() {
           </div>
         </div>
 
-        {/* 間違い一覧 */}
         {mistakes.length === 0 ? (
           <div className="bg-white rounded-xl shadow-lg p-12 text-center">
             <div className="text-gray-400 mb-4">

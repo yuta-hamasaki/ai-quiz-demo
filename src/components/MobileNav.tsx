@@ -87,7 +87,7 @@ export default function MobileNav({ user, signOut }: MobileNavProps) {
       {/* Mobile menu */}
       <div
         id="mobile-menu"
-        className={`fixed top-16 h-screen left-0 right-0 bg-gradient-to-r from-blue-700 via-purple-700 to-indigo-700 shadow-lg z-50 md:hidden transform transition-all duration-300 ease-in-out ${
+        className={`fixed top-16 h-screen left-0 right-0 bg-black shadow-lg z-50 md:hidden transform transition-all duration-300 ease-in-out ${
           isMobileMenuOpen 
             ? 'translate-y-0 opacity-100' 
             : '-translate-y-full opacity-0 pointer-events-none'
@@ -143,15 +143,6 @@ export default function MobileNav({ user, signOut }: MobileNavProps) {
                 >
                   <PortalBtn/>
                 </div>
-                {/* <Link 
-                  href="/dashboard" 
-                  className="flex items-center px-3 py-3 text-white/90 hover:text-white hover:bg-white/10 rounded-lg font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white/50"
-                  onClick={closeMobileMenu}
-                  role="menuitem"
-                >
-                  <span className="mr-3" aria-hidden="true">📊</span>
-                  ダッシュボード
-                </Link> */}
               </nav>
 
               {/* Logout button */}
@@ -169,7 +160,7 @@ export default function MobileNav({ user, signOut }: MobileNavProps) {
             <div className="space-y-3">
               <Link 
                 href="/login"
-                className="block px-3 py-3 text-blue-600 bg-white rounded-lg font-medium hover:bg-blue-50 hover:scale-105 transition-all duration-200 shadow-sm hover:shadow-md text-center focus:outline-none focus:ring-2 focus:ring-blue-300"
+                className="block px-3 py-3 text-white bg-purple-600 rounded-lg  hover:bg-purple-400 hover:scale-105 transition-all duration-200 shadow-sm hover:shadow-md text-center focus:outline-none focus:ring-2 focus:ring-blue-300"
                 onClick={closeMobileMenu}
                 role="menuitem"
               >

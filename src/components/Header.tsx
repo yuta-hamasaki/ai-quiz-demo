@@ -15,7 +15,7 @@ export default async function Header() {
   return (
     <header className="relative z-[9999]">
       {/* Main header */}
-      <div className="bg-gradient-to-r from-blue-800 via-purple-800 to-indigo-800 shadow-lg backdrop-blur-sm">
+      <div className="bg-black shadow-lg backdrop-blur-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             
@@ -44,14 +44,6 @@ export default async function Header() {
                     <span className="mr-2" aria-hidden="true">🏠</span>
                     ホーム
                   </Link>
-                  {/* <Link 
-                    href="/dashboard" 
-                    className="px-4 py-2 text-white/90 hover:text-white hover:bg-white/10 rounded-lg font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white/50"
-                    aria-label="ダッシュボードへ移動"
-                  >
-                    <span className="mr-2" aria-hidden="true">📊</span>
-                    ダッシュボード
-                  </Link> */}
                   
                   <Link 
                     href="/mistakes" 
@@ -101,7 +93,7 @@ export default async function Header() {
                 <div className="flex items-center space-x-2">
                   <Link 
                     href="/login"
-                    className="px-4 py-2 text-blue-600 bg-white rounded-lg font-medium hover:bg-blue-50 hover:scale-105 transition-all duration-200 shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-300"
+                    className="px-4 py-2 text-white bg-purple-600 rounded-lg  hover:bg-purple-400 hover:scale-105 transition-all duration-200 shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-300"
                   >
                     ログイン
                   </Link>

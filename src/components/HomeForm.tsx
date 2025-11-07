@@ -57,7 +57,7 @@ export default function HomeForm() {
 
   
   const currentTitle = isWordQuiz ? "単語クイズ" : "AIライティング/翻訳"
-  const startButtonLabel = isWordQuiz ? "🚀 単語クイズを始める" : "✍️ ライティングを始める"
+  const startButtonLabel = isWordQuiz ? " 単語クイズを始める" : " ライティングを始める"
 
 
   const featureCardBaseStyle = "flex flex-col items-center justify-center p-4 rounded-xl border-2 transition-all duration-200 cursor-pointer text-center h-full"
@@ -226,7 +226,7 @@ export default function HomeForm() {
           <button 
             onClick={handleStart} 
             disabled={isLoading}
-            className={`w-full py-4 bg-gradient-to-r ${isWordQuiz ? 'from-blue-600 to-purple-600' : 'from-purple-600 to-pink-600'} text-white font-semibold rounded-2xl shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 flex items-center justify-center space-x-2 ${
+            className={`w-full py-4 ${isWordQuiz ? ' bg-purple-600' : 'bg-pink-500'} text-white font-semibold rounded-2xl shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 flex items-center justify-center space-x-2 ${
               isLoading ? 'opacity-50 cursor-not-allowed transform-none' : ''
             }`}
           >
