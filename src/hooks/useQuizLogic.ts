@@ -31,7 +31,8 @@ export const useQuizLogic = ({ quizList, user, language, level}: QuizLogicProps)
         setCurrentIndex(currentIndex + 1)
         setIsAnswered(false)
       } else {
-        localStorage.setItem('quiz_score', score.toString())
+        let fixedScore = score +1
+        localStorage.setItem('quiz_score', fixedScore.toString())
         localStorage.setItem('quiz_total', quizList.length.toString())
         
         router.push(`/quiz/result?score=${score}&total=${quizList.length}&language=${language}&level=${level}`)
