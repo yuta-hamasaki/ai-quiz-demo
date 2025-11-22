@@ -13,6 +13,10 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
 OPENAI_API_KEY=your_openai_api_key
 STRIPE_SECRET_KEY=your_stripe_secret_key
 
+
+
+
+
 ---
 ### 作成の経緯
 複数の言語を同時に学習する中で、目的や言語ごとに単語帳を買い揃えるのはコストがかかるうえ、本が増えてしまうという課題を感じていました。
