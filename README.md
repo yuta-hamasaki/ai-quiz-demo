@@ -1,5 +1,25 @@
-# 🧠 AIWordQuiz - ライティング添削・単語学習アプリ
+# AIWordQuiz - ライティング添削・単語学習アプリ
 > Next.js / OpenAI (GPT-4) / Supabase を活用し、ユーザーの習熟度と選択テーマに基づいたカスタム学習体験を提供するSaaS型語学学習プラットフォームです。
+---
+##  Getting Started
+
+### 1. 環境変数を設定
+
+`.env.local` を作成して以下を記述：
+
+```env
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+OPENAI_API_KEY=your_openai_api_key
+STRIPE_SECRET_KEY=your_stripe_secret_key
+
+---
+### 作成の経緯
+複数の言語を同時に学習する中で、目的や言語ごとに単語帳を買い揃えるのはコストがかかるうえ、本が増えてしまうという課題を感じていました。
+この問題を解決するために、本アプリを開発しました。
+
+さらに、日本人は他国の語学学習者と比べてアウトプット量が不足しがちだと考え、日本語から他の言語へ瞬時に訳すトレーニング機能も追加しました。AI によるフィードバックを受けながら学習できるため、より効率的な習得が可能です。
+
 
 ---
 ### 主な機能
@@ -14,7 +34,7 @@
 
 ---
 
-## 🛠️ 技術スタック
+## 技術スタック
 
 | カテゴリ | 技術 | 採用理由 |
 | :--- | :--- | :--- |
@@ -26,15 +46,24 @@
 <!-- | **テスト** | Jest / React Testing Library | カスタムフックのロジック（データ取得、状態遷移）を分離テストし、堅牢性を確保。 | -->
 
 ---
+## システム構成図
+<img width="784" height="488" alt="Screenshot 2025-11-22 at 13 04 11" src="https://github.com/user-attachments/assets/9f489621-7d7e-4bc0-907c-7b97ef25d588" />
 
-## ⚙️ Getting Started
+---
 
-### 1. 環境変数を設定
+## ER図
 
-`.env.local` を作成して以下を記述：
+<img width="671" height="559" alt="Screenshot 2025-11-22 at 12 28 17" src="https://github.com/user-attachments/assets/59085be7-6fb7-4d20-8cb3-fbc408cfdc6c" />
 
-```env
-NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
-OPENAI_API_KEY=your_openai_api_key
-STRIPE_SECRET_KEY=your_stripe_secret_key
+---
+## 今後の展望
+・UI/UX を見直し、直感的に操作できるようなデザインに改善します。また、各機能の操作性を向上させるための改良も行います。
+
+・パフォーマンスの最適化 システムのパフォーマンスを最適化し、快適な操作感を提供します。具体的には、システムのレスポンス時間を短縮するための最適化を行い、ユーザーがストレスなくサービスを利用できるようにします。また、データの読み込み速度や処理速度も向上させます。
+
+・新機能の追加 語学学習での課題を明確化し、新たな機能を追加します。具体的には、ユーザーフィードバックや市場調査を元に、新たな価値を提供できる機能を開発・導入します。これにより、サービスの利便性と魅力を高めます。
+
+
+
+
+
