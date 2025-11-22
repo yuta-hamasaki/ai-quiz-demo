@@ -35,7 +35,7 @@ export const useQuizLogic = ({ quizList, user, language, level}: QuizLogicProps)
         localStorage.setItem('quiz_score', fixedScore.toString())
         localStorage.setItem('quiz_total', quizList.length.toString())
         
-        router.push(`/quiz/result?score=${score}&total=${quizList.length}&language=${language}&level=${level}`)
+        router.push(`/quiz/result?score=${fixedScore}&total=${quizList.length}&language=${language}&level=${level}`)
       }
     }, 1000)
   }

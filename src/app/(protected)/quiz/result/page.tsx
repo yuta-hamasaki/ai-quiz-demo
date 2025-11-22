@@ -39,7 +39,6 @@ export default function QuizResultPage() {
   useEffect(() => {
     const scoreParam = searchParams.get('score')
     const totalParam = searchParams.get('total')
-    
     if (scoreParam && totalParam) {
       setScore(parseInt(scoreParam))
       setTotalQuestions(parseInt(totalParam))
