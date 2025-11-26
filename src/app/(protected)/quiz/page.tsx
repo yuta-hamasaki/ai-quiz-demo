@@ -15,7 +15,7 @@ export default function QuizPage() {
   const background = searchParams.get('background') || ''
 
   const { user, isSubscribed, authLoading } = useAuthAndSubscription()
-  const feature = 'quiz' // 💡 機能種別を指定
+  const feature = 'quiz' // 機能種別を指定
 
   const { quizList, loading } = useQuizData({ language, level, background, user, feature, isSubscribed, authLoading })
   

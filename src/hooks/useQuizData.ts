@@ -8,7 +8,7 @@ interface QuizDataProps {
   level: string
   background: string
   user: any | null
-  feature: 'quiz' | 'writing' // 💡 機能種別
+  feature: 'quiz' | 'writing' // 機能種別
   isSubscribed: boolean
   authLoading: boolean
 }
